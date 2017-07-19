@@ -1,8 +1,8 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var App = require('./components/App');
+var Radio = require('./components/Radio');
 
 ReactDOM.render(
-	<App />,
+	<Radio />,
 	document.getElementById('app')
 );
