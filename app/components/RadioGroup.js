@@ -2,39 +2,32 @@ var React = require('react');
 
 const Styles = {
 
-  outerStyle : {
-  height: 15,
-  width: 15,
-  borderColor:'black',
-  borderWidth: 1,
-  borderStyle: 'solid',
-  borderRadius: 50,
-  display : 'inline-block'
-
+  outerStyle: {
+    height: 16,
+    width: 16,
+    borderColor: 'black',
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderRadius: '50%',
+    display: 'inline-block',
+	verticalAlign: 'text-top'
   },
 
-  selected : {
-  height: 8,
-  width: 8,
-  padding: 0,
-  margin: 2.5,
-  color: 'red',
-  background: 'black',
-  borderColor:'black',
-  borderWidth: 1,
-  borderStyle: 'solid',
-  borderRadius: 50
-
+  selected: {
+    height: 8,
+    width: 8,
+    margin: 4,
+    background: 'black',
+    borderRadius: '50%',
+	boxSizing: 'border-box',
   },
 
-  textStyle : {
-  display : 'inline-block',
-  margin: 10
+  textStyle: {
+    display: 'inline-block',
+    margin: '5px 10px'
   },
 
-  simpleStyle : {
-
-  }
+  simpleStyle: {}
 }
 
 class RadioGroup extends React.Component {
@@ -44,13 +37,12 @@ class RadioGroup extends React.Component {
     this.changeSelect = this.changeSelect.bind(this);
   }
 
-  changeSelect(event){
+  changeSelect(event) {
     const a = event.target.getAttribute('name');
     this.props.onChange(a);
   }
-    
 
-	render() {
+  render() {
 
     var rows = [];
 
@@ -58,28 +50,23 @@ class RadioGroup extends React.Component {
 
     for (var i in option) {
 
-       var newStyle = (i == this.props.value) ? Styles.selected : Styles.simpleStyle;
-       
-       var newOption = ( 
-        <div>
-          <div style = {Styles.outerStyle} onClick = {this.changeSelect} name = {i}>
-              <div style = {newStyle}>
-              </div>
-          </div>
-          <span style = {Styles.textStyle}>{option[i]}</span>
-        </div>
-       );
-       rows.push(newOption);
+      var newStyle = (i == this.props.value) ? Styles.selected : Styles.simpleStyle;
 
+      var newOption = ( 
+	    <div>
+          <div style={ Styles.outerStyle } onClick={this.changeSelect} name={i}>
+		    <div style={ newStyle }></div> 
+		  </div> 
+		  <span style={Styles.textStyle}>{option[i]}</span> 
+		</div>
+      );
+      rows.push(newOption);
     }
-    
-  	return (
-      <div>
-		    {rows}
-      </div>
-	  );
-    
-	};
+
+    return ( 
+	  <div>{rows}</div>
+    );
+  };
 }
 
-module.exports = RadioGroup
+module.exports = RadioGroup;
