@@ -1,7 +1,7 @@
-var React = require('react');
-var RadioGroup = require('./RadioGroup');
+const React = require('react');
+const RadioGroup = require('./RadioGroup');
 
-var option = {
+const option = {
   espresso: 'Espresso',
   americano: 'Americano',
   latte: 'Latte',

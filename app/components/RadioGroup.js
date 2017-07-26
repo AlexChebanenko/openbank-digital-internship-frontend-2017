@@ -1,4 +1,4 @@
-var React = require('react');
+const React = require('react');
 
 const Styles = {
 
@@ -44,15 +44,15 @@ class RadioGroup extends React.Component {
 
   render() {
 
-    var rows = [];
+    let rows = [];
 
-    var option = this.props.options;
+    const option = this.props.options;
 
-    for (var i in option) {
+    for (let i in option) {
 
-      var newStyle = (i == this.props.value) ? Styles.selected : Styles.simpleStyle;
+      const newStyle = (i == this.props.value) ? Styles.selected : Styles.simpleStyle;
 
-      var newOption = ( 
+      const newOption = ( 
 	    <div>
           <div style={ Styles.outerStyle } onClick={this.changeSelect} name={i}>
 		    <div style={ newStyle }></div> 
