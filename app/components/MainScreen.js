@@ -83,7 +83,7 @@ class MainScreen extends React.Component {
   changeCurrency(event) {
     const newCur = event.target.getAttribute('value');
     this.props.setCurrency(newCur);
-    if(newCur === 'rur') {
+    if (newCur === 'rur') {
       this.setState({
         userInput: '',
         percent: 0 + ' %',
@@ -107,51 +107,50 @@ class MainScreen extends React.Component {
   render() {
 
     if (!this.props.mainScr) {
-      return <div></div>
-    } else {
+      return null;
+    } 
 
-      return (
+    return (
+      <div>
+        <div style = {borderProperty}>
+          <div style = {textStyle} onClick = {this.changeCurrency} value = 'rur'> РУБЛИ </div>
+          <div style = {selectedBorder} onClick = {this.changeCurrency} value = 'usd'> ДОЛЛАРЫ </div>
+          <div style = {textStyle} onClick = {this.changeCurrency} value = 'eur'> ЕВРО </div>
+        </div>
         <div>
-          <div style = {borderProperty}>
-            <div style = {textStyle} onClick = {this.changeCurrency} value = 'rur'> РУБЛИ </div>
-            <div style = {selectedBorder} onClick = {this.changeCurrency} value = 'usd'> ДОЛЛАРЫ </div>
-            <div style = {textStyle} onClick = {this.changeCurrency} value = 'eur'> ЕВРО </div>
+          <input type = 'text' style = {inputStyle} onChange = {this.handleInput} value={this.state.userInput}/>
+        </div>
+        <div style = {{'margin-top': 20}}>
+          <div style = {{display: 'inline-block', 'margin-left': 30}}>
+            <div>
+              <div> Если не снимать средства, </div>
+              <div> в конце месяца вы получите </div>
+            </div>
+            <div style = {{color: 'lawngreen'}}>{this.state.profit}</div>
           </div>
-          <div>
-            <input type = 'text' style = {inputStyle} onChange = {this.handleInput} value={this.state.userInput}/>
+          <div style = {{display: 'inline-block','margin-left': 30}}> 
+            <div> 
+              <div> Процентная ставка зависит </div>
+              <div> от минимального остатка на счёте </div>
+            </div>
+            <div>{this.state.percent}</div>
           </div>
-          <div style = {{'margin-top': 20}}>
-            <div style = {{display: 'inline-block', 'margin-left': 30}}>
-              <div>
-                <div> Если не снимать средства, </div>
-                <div> в конце месяца вы получите </div>
-              </div>
-              <div style = {{color: 'lawngreen'}}>{this.state.profit}</div>
-            </div>
-            <div style = {{display: 'inline-block','margin-left': 30}}> 
-              <div> 
-                <div> Процентная ставка зависит </div>
-                <div> от минимального остатка на счёте </div>
-              </div>
-              <div>{this.state.percent}</div>
-            </div>
-            <div style = {{display: 'inline-block', 'margin-left': 30}}>
-              <a href = {this.props.json.tariffUrl}> О тарифе </a>
-              <div>&nbsp;</div>
-              <div>&nbsp;</div>
-            </div>
-          </div>
-          <div>
-            <div style = {{ display: 'inline-block' }}>
-              <input type = 'button' style = {buttonStyle} onClick = {this.handleButton} value = "Открыть копилку" />
-            </div>
-            <div style = {{ display: 'inline-block', 'margin-left': 50}}>
-              <div style = {{'text-decoration': 'underline', color: 'deepskyblue'}}> Отмена </div>
-            </div>
+          <div style = {{display: 'inline-block', 'margin-left': 30}}>
+            <a href = {this.props.json.tariffUrl}> О тарифе </a>
+            <div>&nbsp;</div>
+            <div>&nbsp;</div>
           </div>
         </div>
-      )
-    }
+        <div>
+          <div style = {{ display: 'inline-block' }}>
+            <input type = 'button' style = {buttonStyle} onClick = {this.handleButton} value = "Открыть копилку" />
+          </div>
+          <div style = {{ display: 'inline-block', 'margin-left': 50}}>
+            <div style = {{'text-decoration': 'underline', color: 'deepskyblue'}}> Отмена </div>
+          </div>
+        </div>
+      </div>
+    );
   }
 }
 

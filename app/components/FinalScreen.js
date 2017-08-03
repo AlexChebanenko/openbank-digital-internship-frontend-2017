@@ -21,11 +21,11 @@ class FinalScreen extends React.Component {
         <div> {this.props.amount}</div>
         <div> Открытие накопительного счета </div>
         <div>
-          <input type = 'button' style = {buttonStyle} onClick = {this.props.isDone} value = "Готово" />
+          <input type = 'button' style={buttonStyle} onClick = {this.props.isDone} value = "Готово" />
         </div>
       </div>
     );
   }
 }
 
-module.exports = FinalScreen
+module.exports = FinalScreen;

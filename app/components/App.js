@@ -88,27 +88,27 @@ class App extends React.Component {
   render() {
 
     if(this.state.finalScr) {
-      return <FinalScreen isDone = {this.moneyBoxFinished} amount = {this.state.amount}/>
-    } else {
-      return (
-        <div>
-          <StartScreen 
-            json = {json} 
-            onChange = {this.addMainScreen} 
-            mainScr = {this.state.mainScr}
-          />
-          <MainScreen 
-            json = {json} 
-            mainScr = {this.state.mainScr} 
-            currency = {this.state.currency} 
-            setCurrency = {this.setCurrency} 
-            buttonChange = {this.openFinalScreen} 
-            changeAmount = {this.changeAmount}
-          />
-        </div>
-      );
-    }  
+      return <FinalScreen isDone = {this.moneyBoxFinished} amount = {this.state.amount}/>;
+    } 
+    
+    return (
+      <div>
+        <StartScreen 
+          json = {json} 
+          onChange = {this.addMainScreen} 
+          mainScr = {this.state.mainScr}
+        />
+        <MainScreen 
+          json = {json} 
+          mainScr = {this.state.mainScr} 
+          currency = {this.state.currency} 
+          setCurrency = {this.setCurrency} 
+          buttonChange = {this.openFinalScreen} 
+          changeAmount = {this.changeAmount}
+        />
+      </div>
+    );
   };
 }
 
-module.exports = App
+module.exports = App;
