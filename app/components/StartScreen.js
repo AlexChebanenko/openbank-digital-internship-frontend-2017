@@ -40,11 +40,6 @@ class StartScreen extends React.Component {
 
   constructor(props) {
   	super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick() {
-  	this.props.onChange();
   }
 
   render() {
@@ -64,7 +59,7 @@ class StartScreen extends React.Component {
           </div>
         </div>
         <div style = {{display: 'inline-block'}}>
-		      <div style = {outerStyle} onClick = {this.handleClick}> 
+		      <div style = {outerStyle} onClick = {this.props.onChange}> 
 		          <div style = {newStyle}>{symbol}</div>
 		      </div>
         </div>

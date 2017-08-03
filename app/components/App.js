@@ -1,6 +1,7 @@
 const React = require('react');
 const StartScreen = require('./StartScreen');
 const MainScreen = require('./MainScreen');
+const FinalScreen = require ('./FinalScreen');
 
 const json = {
   title: "Моя Копилка – до 6,75%",
@@ -36,10 +37,15 @@ class App extends React.Component {
     super(props);
     this.state = {
       mainScr: false,
-      currency: 'rur'
+      currency: 'rur',
+      finalScr: false,
+      amount: 0
     };
     this.addMainScreen = this.addMainScreen.bind(this);
     this.setCurrency = this.setCurrency.bind(this);
+    this.openFinalScreen = this.openFinalScreen.bind(this);
+    this.moneyBoxFinished = this.moneyBoxFinished.bind(this);
+    this.changeAmount = this.changeAmount.bind(this);
   }
     
   addMainScreen() {
@@ -57,19 +63,52 @@ class App extends React.Component {
   setCurrency(newCur) {
     this.setState({
       currency: newCur
+    });
+  }
+
+  openFinalScreen() {
+    this.setState({
+      finalScr: true,
+    });
+  }
+
+  moneyBoxFinished() {
+    this.setState({
+      mainScr: false,
+      finalScr: false
+    });
+  }
+
+  changeAmount(finalAmount) {
+    this.setState({
+      amount: finalAmount
     })
   }
 
-	render() {
-   
-		return (
-      <div>
-        <StartScreen json = {json} onChange = {this.addMainScreen} mainScr = {this.state.mainScr}/>
-        <MainScreen json = {json} mainScr = {this.state.mainScr} currency = {this.state.currency} setCurrency = {this.setCurrency} />
-      </div>
-		);
-    
-	};
+  render() {
+
+    if(this.state.finalScr) {
+      return <FinalScreen isDone = {this.moneyBoxFinished} amount = {this.state.amount}/>
+    } else {
+      return (
+        <div>
+          <StartScreen 
+            json = {json} 
+            onChange = {this.addMainScreen} 
+            mainScr = {this.state.mainScr}
+          />
+          <MainScreen 
+            json = {json} 
+            mainScr = {this.state.mainScr} 
+            currency = {this.state.currency} 
+            setCurrency = {this.setCurrency} 
+            buttonChange = {this.openFinalScreen} 
+            changeAmount = {this.changeAmount}
+          />
+        </div>
+      );
+    }  
+  };
 }
 
 module.exports = App

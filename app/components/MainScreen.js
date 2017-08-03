@@ -13,6 +13,14 @@ const inputStyle = {
 	fontSize: 25
 }
 
+const buttonStyle = {
+	'margin-left': 30,
+	width: 150,
+	height: 50,
+	color: 'white',
+	'background-color': 'deepskyblue'
+}
+
 const borderProperty = {
 	'border-top': '1px outset #3a4c4f',
 	'border-bottom': '1px inset #3a4c4f',
@@ -35,6 +43,7 @@ class MainScreen extends React.Component {
 		};
 		this.handleInput = this.handleInput.bind(this);
 		this.changeCurrency = this.changeCurrency.bind(this);
+		this.handleButton = this.handleButton.bind(this);
 	}
 
 	handleInput(event) {
@@ -66,24 +75,29 @@ class MainScreen extends React.Component {
 		}
 	}
 
+	handleButton() {
+		this.props.changeAmount(this.state.userInput);
+		this.props.buttonChange();
+	}
+
 	changeCurrency(event) {
 		const newCur = event.target.getAttribute('value');
 		this.props.setCurrency(newCur);
 		if(newCur === 'rur') {
 		  this.setState({
-		  	  userInput: '',
+		  	userInput: '',
 			  percent: 0 + ' %',
 			  profit: 0 + ' ₽'
 		  });
 		} else if (newCur === 'usd') {
 			this.setState({
-		  	  userInput: '',
+		  	userInput: '',
 			  percent: 0 + ' %',
 			  profit: 0 + ' $'
 		  });
 		} else {
 			this.setState({
-		  	  userInput: '',
+		  	userInput: '',
 			  percent: 0 + ' %',
 			  profit: 0 + ' €'
 		  });
@@ -91,7 +105,7 @@ class MainScreen extends React.Component {
 	}
 
 	render() {
-		
+
 		if (!this.props.mainScr) {
 			return <div></div>
 		} else {
@@ -127,9 +141,17 @@ class MainScreen extends React.Component {
 		          <div>&nbsp;</div>
 		        </div>
 		      </div>
+		      <div>
+		        <div style = {{ display: 'inline-block' }}>
+		          <input type = 'button' style = {buttonStyle} onClick = {this.handleButton} value = "Открыть копилку" />
+		        </div>
+		        <div style = {{ display: 'inline-block', 'margin-left': 50}}>
+		          <div style = {{'text-decoration': 'underline', color: 'deepskyblue'}}> Отмена </div>
+		        </div>
+		      </div>
 		    </div>
 		  )
-	    }
+	  }
 	}
 }
 
