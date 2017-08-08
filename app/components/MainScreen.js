@@ -1,38 +1,5 @@
 const React = require('react');
 
-const textStyle = {
-  display: 'inline-block',
-  'margin-left': 30
-}
-
-const inputStyle = {
-  'margin-top': 20,
-  'margin-left': 30, 
-  height: 30,
-  width: 200,
-  fontSize: 25
-}
-
-const buttonStyle = {
-  'margin-left': 30,
-  width: 150,
-  height: 50,
-  color: 'white',
-  'background-color': 'deepskyblue'
-}
-
-const borderProperty = {
-  'border-top': '1px outset #3a4c4f',
-  'border-bottom': '1px inset #3a4c4f',
-  'margin-top': 20
-}
-
-const selectedBorder = {
-  display: 'inline-block',
-  'margin-left': 30,
-  'border-bottom': '3px solid #00BFFF'
-}
-
 class MainScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -140,13 +107,13 @@ class MainScreen extends React.Component {
 
     return (
       <div>
-        <div style = {borderProperty}>
-          <div style = {textStyle} onClick = {this.changeCurrency} value = 'rur'> РУБЛИ </div>
-          <div style = {selectedBorder} onClick = {this.changeCurrency} value = 'usd'> ДОЛЛАРЫ </div>
-          <div style = {textStyle} onClick = {this.changeCurrency} value = 'eur'> ЕВРО </div>
+        <div className = 'border-property'>
+          <div className = 'textStyle' onClick = {this.changeCurrency} value = 'rur'> РУБЛИ </div>
+          <div className = 'selectedBorder' onClick = {this.changeCurrency} value = 'usd'> ДОЛЛАРЫ </div>
+          <div className = 'textStyle' onClick = {this.changeCurrency} value = 'eur'> ЕВРО </div>
         </div>
         <div>
-          <input type = 'text' style = {inputStyle} onChange = {this.handleInput} value={this.state.userInput}/>
+          <input type = 'text' className = 'input-style' onChange = {this.handleInput} value={this.state.userInput}/>
         </div>
         <div style = {{'margin-top': 20}}>
           <div style = {{display: 'inline-block', 'margin-left': 30}}>
@@ -171,7 +138,7 @@ class MainScreen extends React.Component {
         </div>
         <div>
           <div style = {{ display: 'inline-block' }}>
-            <input type = 'button' style = {buttonStyle} onClick = {this.handleButton} value = "Открыть копилку" />
+            <input type = 'button' className = 'button-style' onClick = {this.handleButton} value = "Открыть копилку" />
           </div>
           <div style = {{ display: 'inline-block', 'margin-left': 50}}>
             <div style = {{'text-decoration': 'underline', color: 'deepskyblue'}} onClick = {this.cancelOperation}> Отмена </div>

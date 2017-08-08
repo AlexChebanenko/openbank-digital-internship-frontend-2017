@@ -1,3 +1,69 @@
+/* StartScreen.js */
+
+.outer-style1 {
+  height: 50px;
+  width: 50px;
+  border-color: deepskyblue;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 50px;
+  vertical-align: text-top;
+  margin-left: 50px;
+}
+
+.outer-style2 {
+  height: 50px;
+  width: 50px;
+  border-color: gainsboro;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 50px;
+  vertical-align: text-top;
+  margin-left: 50px;
+}
+
+.plus-style {
+  font-size: 30px;
+  margin-left: 16px;
+  margin-top: 5px;
+  color: deepskyblue;
+}
+
+.cross-style {
+  font-size: 30px;
+  margin-left: 16px;
+  margin-top: 5px;
+  color: gainsboro;
+}
+
+/* MainScreen.js */
+
+.textStyle {
+  display: inline-block;
+  margin-left: 30px;
+}
+
+.selectedBorder {
+  display: inline-block;
+  margin-left: 30px;
+  border-bottom: 3px solid #00BFFF;
+}
+
+.border-property {
+  border-top: 1px outset #3a4c4f;
+  border-bottom: 1px inset #3a4c4f;
+  margin-top: 20px;
+}
+.input-style {
+  margin-top: 20px;
+  margin-left: 30px;
+  height: 30px;
+  width: 200px;
+  font-size: 25px;
+}
+
+/* MainScreen.js  FinalScreen.js*/
+
 .button-style {
   margin-left: 30px;
   width: 150px;

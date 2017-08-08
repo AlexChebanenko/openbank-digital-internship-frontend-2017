@@ -13,7 +13,7 @@ class FinalScreen extends React.Component {
         <div> {this.props.amount}</div>
         <div> Открытие накопительного счета </div>
         <div>
-          <input type = 'button' className = 'buttonStyle' onClick = {this.props.isDone} value = "Готово" />
+          <input type = 'button' className = 'button-style' onClick = {this.props.isDone} value = "Готово" />
         </div>
       </div>
     );
