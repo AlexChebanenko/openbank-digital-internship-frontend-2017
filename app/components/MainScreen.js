@@ -37,19 +37,26 @@ class MainScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userInput: '',
-      percent: 0 + ' %',
-      profit: 0 + ' ₽'
+      userInput: this.props.json.defaultAmount.RUR,
+      percent: this.props.json.interestPercentage.RUR[this.props.json.defaultAmount.RUR] + ' %',
+      profit:  Math.round((this.props.json.defaultAmount.RUR * this.props.json.interestPercentage.RUR[this.props.json.defaultAmount.RUR]) / 1200) + ' ₽'
     };
     this.handleInput = this.handleInput.bind(this);
     this.changeCurrency = this.changeCurrency.bind(this);
     this.handleButton = this.handleButton.bind(this);
+    this.cancelOperation = this.cancelOperation.bind(this);
   }
 
   handleInput(event) {
     const curValue = event.target.value;
     if(this.props.currency === 'rur') {
-      const curPercent = 5.75;
+      let curPercent = 0;
+      const interest = this.props.json.interestPercentage.RUR;
+      for (let i in interest) {
+        if(+curValue >= +i) {
+          curPercent = interest[i];
+        }
+      }
       const curProfit = Math.round((curPercent * curValue) / 1200);
       this.setState({
         userInput: curValue,
@@ -57,7 +64,13 @@ class MainScreen extends React.Component {
         profit: '+ ' + curProfit + ' ₽'
       });
     } else if (this.props.currency === 'usd') {
-      const curPercent = 0.2;
+      let curPercent = 0;
+      const interest = this.props.json.interestPercentage.USD;
+      for (let i in interest) {
+        if(+curValue >= +i) {
+          curPercent = interest[i];
+        }
+      }
       const curProfit = Math.round((curPercent * curValue) / 1200);
       this.setState({
         userInput: curValue,
@@ -65,7 +78,13 @@ class MainScreen extends React.Component {
         profit: '+ ' + curProfit + ' $'
       });
     } else {
-      const curPercent = 0.2;
+      let curPercent = 0;
+      const interest = this.props.json.interestPercentage.EUR;
+      for (let i in interest) {
+        if(+curValue >= +i) {
+          curPercent = interest[i];
+        }
+      }
       const curProfit = Math.round((curPercent * curValue) / 1200);
       this.setState({
         userInput: curValue,
@@ -80,26 +99,35 @@ class MainScreen extends React.Component {
     this.props.buttonChange();
   }
 
+  cancelOperation() {
+    this.props.onChange();
+    this.setState({
+      userInput: '',
+      percent: 0 + ' %',
+      profit: 0 + ' ₽'
+    })
+  }
+
   changeCurrency(event) {
     const newCur = event.target.getAttribute('value');
     this.props.setCurrency(newCur);
     if (newCur === 'rur') {
       this.setState({
-        userInput: '',
-        percent: 0 + ' %',
-        profit: 0 + ' ₽'
+        userInput: this.props.json.defaultAmount.RUR,
+        percent: this.props.json.interestPercentage.RUR[this.props.json.defaultAmount.RUR] + ' %',
+        profit: Math.round((this.props.json.defaultAmount.RUR * this.props.json.interestPercentage.RUR[this.props.json.defaultAmount.RUR]) / 1200) + ' ₽'
       });
     } else if (newCur === 'usd') {
       this.setState({
-        userInput: '',
-        percent: 0 + ' %',
-        profit: 0 + ' $'
+        userInput: this.props.json.defaultAmount.USD,
+        percent: this.props.json.interestPercentage.USD[this.props.json.defaultAmount.USD] + ' %',
+        profit: Math.round((this.props.json.defaultAmount.USD * this.props.json.interestPercentage.USD[this.props.json.defaultAmount.USD]) / 1200) + ' $'
       });
     } else {
       this.setState({
-        userInput: '',
-        percent: 0 + ' %',
-        profit: 0 + ' €'
+        userInput: this.props.json.defaultAmount.EUR,
+        percent: this.props.json.interestPercentage.EUR[this.props.json.defaultAmount.EUR] + ' %',
+        profit: Math.round((this.props.json.defaultAmount.EUR * this.props.json.interestPercentage.EUR[this.props.json.defaultAmount.EUR]) / 1200) + ' €'
       });
     }
   }
@@ -146,7 +174,7 @@ class MainScreen extends React.Component {
             <input type = 'button' style = {buttonStyle} onClick = {this.handleButton} value = "Открыть копилку" />
           </div>
           <div style = {{ display: 'inline-block', 'margin-left': 50}}>
-            <div style = {{'text-decoration': 'underline', color: 'deepskyblue'}}> Отмена </div>
+            <div style = {{'text-decoration': 'underline', color: 'deepskyblue'}} onClick = {this.cancelOperation}> Отмена </div>
           </div>
         </div>
       </div>

@@ -16,7 +16,7 @@ const json = {
     RUR: {
       "0": 3,
       "10000": 5.5,
-      "50000": 5.75
+      "50000": 6.75
     },
     USD: {
       "0": 0,
@@ -103,6 +103,7 @@ class App extends React.Component {
           mainScr = {this.state.mainScr} 
           currency = {this.state.currency} 
           setCurrency = {this.setCurrency} 
+          onChange = {this.addMainScreen} 
           buttonChange = {this.openFinalScreen} 
           changeAmount = {this.changeAmount}
         />
