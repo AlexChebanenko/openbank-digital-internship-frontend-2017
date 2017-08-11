@@ -1,20 +1,25 @@
 /* StartScreen.js */
+.start-screen {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 
 .outer-style1 {
-  height: 50px;
-  width: 50px;
+  height: 70px;
+  width: 70px;
   border-color: deepskyblue;
   border-width: 1px;
   border-style: solid;
   border-radius: 50px;
   vertical-align: text-top;
   margin-left: 80px;
-  margin-bottom: 50px;
 }
 
 .outer-style2 {
-  height: 50px;
-  width: 50px;
+  height: 70px;
+  width: 70px;
   border-color: gainsboro;
   border-width: 1px;
   border-style: solid;
@@ -24,16 +29,16 @@
 }
 
 .plus-style {
-  font-size: 30px;
-  margin-left: 16px;
-  margin-top: 5px;
+  font-size: 40px;
+  margin-left: 23px;
+  margin-top: 10px;
   color: deepskyblue;
 }
 
 .cross-style {
-  font-size: 30px;
-  margin-left: 16px;
-  margin-top: 5px;
+  font-size: 40px;
+  margin-left: 23px;
+  margin-top: 10px;
   color: gainsboro;
 }
 
@@ -97,7 +102,15 @@
 
 /* FinalScreen.js*/
 
-.outer-style3 {
+.my-flex-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  height: 200px;
+}
+
+.my-flex-block {
   height: 50px;
   width: 50px;
   border-color: lawngreen;
@@ -105,7 +118,17 @@
   border-style: solid;
   border-radius: 50px;
   vertical-align: text-top;
+  margin-left: 135px;
+}
+
+.my-flex-block-1 {
+  margin-left: 100px;
+  font-size: 30px;
+}
+
+.my-flex-block-2 {
   margin-left: 50px;
+  font-size: 15px;
 }
 
 .check-style {
