@@ -6,7 +6,7 @@ class MainScreen extends React.Component {
     this.state = {
       userInput: this.props.json.defaultAmount.RUR,
       percent: this.props.json.interestPercentage.RUR[this.props.json.defaultAmount.RUR] + ' %',
-      profit:  Math.round((this.props.json.defaultAmount.RUR * this.props.json.interestPercentage.RUR[this.props.json.defaultAmount.RUR]) / 1200) + ' ₽'
+      profit:  '+ ' + Math.round((this.props.json.defaultAmount.RUR * this.props.json.interestPercentage.RUR[this.props.json.defaultAmount.RUR]) / 1200) + ' ₽'
     };
     this.handleInput = this.handleInput.bind(this);
     this.changeCurrency = this.changeCurrency.bind(this);
@@ -82,19 +82,19 @@ class MainScreen extends React.Component {
       this.setState({
         userInput: this.props.json.defaultAmount.RUR,
         percent: this.props.json.interestPercentage.RUR[this.props.json.defaultAmount.RUR] + ' %',
-        profit: Math.round((this.props.json.defaultAmount.RUR * this.props.json.interestPercentage.RUR[this.props.json.defaultAmount.RUR]) / 1200) + ' ₽'
+        profit: '+ ' + Math.round((this.props.json.defaultAmount.RUR * this.props.json.interestPercentage.RUR[this.props.json.defaultAmount.RUR]) / 1200) + ' ₽'
       });
     } else if (newCur === 'usd') {
       this.setState({
         userInput: this.props.json.defaultAmount.USD,
         percent: this.props.json.interestPercentage.USD[this.props.json.defaultAmount.USD] + ' %',
-        profit: Math.round((this.props.json.defaultAmount.USD * this.props.json.interestPercentage.USD[this.props.json.defaultAmount.USD]) / 1200) + ' $'
+        profit: '+ ' + Math.round((this.props.json.defaultAmount.USD * this.props.json.interestPercentage.USD[this.props.json.defaultAmount.USD]) / 1200) + ' $'
       });
     } else {
       this.setState({
         userInput: this.props.json.defaultAmount.EUR,
         percent: this.props.json.interestPercentage.EUR[this.props.json.defaultAmount.EUR] + ' %',
-        profit: Math.round((this.props.json.defaultAmount.EUR * this.props.json.interestPercentage.EUR[this.props.json.defaultAmount.EUR]) / 1200) + ' €'
+        profit: '+ ' + Math.round((this.props.json.defaultAmount.EUR * this.props.json.interestPercentage.EUR[this.props.json.defaultAmount.EUR]) / 1200) + ' €'
       });
     }
   }
@@ -105,12 +105,34 @@ class MainScreen extends React.Component {
       return null;
     } 
 
+    let rows = [];
+
+    const option = this.props.json.interestPercentage;
+    let currencyTitle = ''
+
+    for (let i in option) {
+
+
+      if (i === 'RUR') {
+        currencyTitle = 'РУБЛИ';
+      } else if (i === 'USD') {
+        currencyTitle = 'ДОЛЛАРЫ';
+      } else {
+        currencyTitle = 'ЕВРО';
+      }
+
+      const newStyle = (i.toLowerCase() === this.props.currency) ? 'selected-border' : 'text-style';
+
+      const newOption = ( 
+      <div className = {newStyle} onClick = {this.changeCurrency} value = {i.toLowerCase()}> {currencyTitle} </div>
+      );
+      rows.push(newOption);
+    }
+
     return (
       <div>
         <div className = 'border-property'>
-          <div className = 'textStyle' onClick = {this.changeCurrency} value = 'rur'> РУБЛИ </div>
-          <div className = 'selectedBorder' onClick = {this.changeCurrency} value = 'usd'> ДОЛЛАРЫ </div>
-          <div className = 'textStyle' onClick = {this.changeCurrency} value = 'eur'> ЕВРО </div>
+          {rows}
         </div>
         <div>
           <input type = 'text' className = 'input-style' onChange = {this.handleInput} value={this.state.userInput}/>
@@ -118,25 +140,28 @@ class MainScreen extends React.Component {
         <div style = {{'margin-top': 20}}>
           <div style = {{display: 'inline-block', 'margin-left': 30}}>
             <div>
-              <div> Если не снимать средства, </div>
-              <div> в конце месяца вы получите </div>
+              <div className = 'text-style2'> Если не снимать средства, </div>
+              <div className = 'text-style2'> в конце месяца вы получите </div>
             </div>
-            <div style = {{color: 'lawngreen'}}>{this.state.profit}</div>
+            <div>&nbsp;</div>
+            <div className = 'profit-style'>{this.state.profit}</div>
           </div>
           <div style = {{display: 'inline-block','margin-left': 30}}> 
             <div> 
-              <div> Процентная ставка зависит </div>
-              <div> от минимального остатка на счёте </div>
+              <div className = 'text-style2'> Процентная ставка зависит </div>
+              <div className = 'text-style2'> от минимального остатка на счёте </div>
             </div>
-            <div>{this.state.percent}</div>
+            <div>&nbsp;</div>
+            <div className = 'percent-style'>{this.state.percent}</div>
           </div>
           <div style = {{display: 'inline-block', 'margin-left': 30}}>
             <a href = {this.props.json.tariffUrl}> О тарифе </a>
             <div>&nbsp;</div>
             <div>&nbsp;</div>
+            <div>&nbsp;</div>
           </div>
         </div>
-        <div>
+        <div style = {{ 'margin-top': 20 }}>
           <div style = {{ display: 'inline-block' }}>
             <input type = 'button' className = 'button-style' onClick = {this.handleButton} value = "Открыть копилку" />
           </div>

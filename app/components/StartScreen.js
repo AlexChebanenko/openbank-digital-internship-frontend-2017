@@ -14,11 +14,12 @@ class StartScreen extends React.Component {
 
     return (
             <div> 
-              <div style = {{display: 'inline-block', 'margin-left': 30}}>
-                <div style = {{fontSize: 20}}>
+              <div style = {{display: 'inline-block', marginLeft: 30}}>
+                <div style = {{fontSize: 40}}>
                   {this.props.json.title}
                 </div>
-                <div style = {{fontSize: 10, color: 'lawngreen'}}>
+                <div>&nbsp;</div>
+                <div style = {{fontSize: 18, color: 'lawngreen'}}>
                   {this.props.json.caption}
                 </div>
               </div>

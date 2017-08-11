@@ -8,7 +8,8 @@
   border-style: solid;
   border-radius: 50px;
   vertical-align: text-top;
-  margin-left: 50px;
+  margin-left: 80px;
+  margin-bottom: 50px;
 }
 
 .outer-style2 {
@@ -19,7 +20,7 @@
   border-style: solid;
   border-radius: 50px;
   vertical-align: text-top;
-  margin-left: 50px;
+  margin-left: 80px;
 }
 
 .plus-style {
@@ -38,36 +39,78 @@
 
 /* MainScreen.js */
 
-.textStyle {
+.text-style {
   display: inline-block;
   margin-left: 30px;
+  font-size: 20px;
 }
 
-.selectedBorder {
+.selected-border {
   display: inline-block;
   margin-left: 30px;
   border-bottom: 3px solid #00BFFF;
+  font-size: 20px;
 }
 
 .border-property {
-  border-top: 1px outset #3a4c4f;
-  border-bottom: 1px inset #3a4c4f;
-  margin-top: 20px;
+  border-top: 1px outset #DCDCDC;
+  border-bottom: 1px inset #DCDCDC;
+  margin-top: 10px;
+  margin-right: 820px;
 }
+
 .input-style {
   margin-top: 20px;
   margin-left: 30px;
-  height: 30px;
-  width: 200px;
+  height: 75px;
+  width: 300px;
   font-size: 25px;
+  border-radius: 3px;
+}
+
+.text-style2 {
+  color: darkgrey;
+  font-size: 15px;
+}
+
+.profit-style {
+  color: lawngreen;
+  font-size: 15px;
+}
+
+.percent-style {
+  font-size: 15px;
 }
 
 /* MainScreen.js  FinalScreen.js*/
 
 .button-style {
   margin-left: 30px;
-  width: 150px;
-  height: 50px;
+  width: 250px;
+  height: 75px;
   color: white;
   background-color: deepskyblue;
+  border-radius: 10px;
+  font-size: 15px;
+}
+
+
+/* FinalScreen.js*/
+
+.outer-style3 {
+  height: 50px;
+  width: 50px;
+  border-color: lawngreen;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 50px;
+  vertical-align: text-top;
+  margin-left: 50px;
+}
+
+.check-style {
+  font-size: 30px;
+  margin-left: 16px;
+  margin-top: 5px;
+  color: lawngreen;
 }
