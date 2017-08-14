@@ -8,18 +8,18 @@ class StartScreen extends React.Component {
 
   render() {
 
-    const newStyle = (!this.props.mainScr) ? 'plus-style' : 'cross-style';
-    const symbol = (!this.props.mainScr) ? '+' : '×';
-    const outerStyle = (!this.props.mainScr) ? 'outer-style1' : 'outer-style2';
+    const newStyle = this.props.mainScr ? 'cross-style' : 'plus-style';
+    const symbol = this.props.mainScr ? '×' : '+';
+    const outerStyle = this.props.mainScr ? 'grey-outer-style' : 'blue-outer-style';
 
     return (
             <div className = "start-screen"> 
-              <div style = {{marginLeft: 30}}>
-                <div style = {{fontSize: 40}}>
+              <div>
+                <div className = "title-style">
                   {this.props.json.title}
                 </div>
                 <div>&nbsp;</div>
-                <div style = {{fontSize: 18, color: 'lawngreen'}}>
+                <div className = "caption-style">
                   {this.props.json.caption}
                 </div>
               </div>

@@ -8,14 +8,14 @@ class FinalScreen extends React.Component {
 
   render() {
     return (
-      <div className = 'my-flex-container'>
-        <div className = "my-flex-block">
+      <div className = "my-flex-container">
+        <div className = "final-screen-outer-style">
           <div className = "check-style">✓</div>
         </div>
-        <div className = "my-flex-block-1">  { "- " +this.props.amount + ' ₽'}</div>
-        <div className = 'my-flex-block-2'> Открытие накопительного счета </div>
+        <div className = "amount-style">  { '- ' +this.props.amount + ' ₽'}</div>
+        <div className = "final-screen-text-style"> Открытие накопительного счета </div>
         <div>
-          <input type = 'button' className = 'button-style' onClick = {this.props.isDone} value = "Готово" />
+          <input type = "button" className = "button-style" onClick = {this.props.isDone} value = "Готово" />
         </div>
       </div>
     );

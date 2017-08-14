@@ -121,7 +121,7 @@ class MainScreen extends React.Component {
         currencyTitle = 'ЕВРО';
       }
 
-      const newStyle = (i.toLowerCase() === this.props.currency) ? 'selected-border' : 'text-style';
+      const newStyle = (i.toLowerCase() === this.props.currency) ? 'selected-border' : 'currency-text-style';
 
       const newOption = ( 
       <div className = {newStyle} onClick = {this.changeCurrency} value = {i.toLowerCase()}> {currencyTitle} </div>
@@ -131,42 +131,42 @@ class MainScreen extends React.Component {
 
     return (
       <div>
-        <div className = 'border-property'>
+        <div className = "border-property">
           {rows}
         </div>
         <div>
-          <input type = 'text' className = 'input-style' onChange = {this.handleInput} value={this.state.userInput}/>
+          <input type = "text" className = "input-style" onChange = {this.handleInput} value={this.state.userInput}/>
         </div>
-        <div style = {{'margin-top': 20}}>
-          <div style = {{display: 'inline-block', 'margin-left': 30}}>
+        <div className = "main-screen-flex-block">
+          <div className = "main-screen-flex-element">
             <div>
-              <div className = 'text-style2'> Если не снимать средства, </div>
-              <div className = 'text-style2'> в конце месяца вы получите </div>
+              <div className = "text-style"> Если не снимать средства, </div>
+              <div className = "text-style"> в конце месяца вы получите </div>
             </div>
             <div>&nbsp;</div>
-            <div className = 'profit-style'>{this.state.profit}</div>
+            <div className = "profit-style">{this.state.profit}</div>
           </div>
-          <div style = {{display: 'inline-block','margin-left': 30}}> 
+          <div className = "main-screen-flex-element"> 
             <div> 
-              <div className = 'text-style2'> Процентная ставка зависит </div>
-              <div className = 'text-style2'> от минимального остатка на счёте </div>
+              <div className = "text-style"> Процентная ставка зависит </div>
+              <div className = "text-style"> от минимального остатка на счёте </div>
             </div>
             <div>&nbsp;</div>
-            <div className = 'percent-style'>{this.state.percent}</div>
+            <div className = "percent-style">{this.state.percent}</div>
           </div>
-          <div style = {{display: 'inline-block', 'margin-left': 30}}>
+          <div className = "main-screen-flex-element">
             <a href = {this.props.json.tariffUrl}> О тарифе </a>
             <div>&nbsp;</div>
             <div>&nbsp;</div>
             <div>&nbsp;</div>
           </div>
         </div>
-        <div style = {{ 'margin-top': 20 }}>
-          <div style = {{ display: 'inline-block' }}>
-            <input type = 'button' className = 'button-style' onClick = {this.handleButton} value = "Открыть копилку" />
+        <div className = "main-screen-flex-block">
+          <div>
+            <input type = "button" className = "button-style" onClick = {this.handleButton} value = "Открыть копилку" />
           </div>
-          <div style = {{ display: 'inline-block', 'margin-left': 50}}>
-            <div style = {{'text-decoration': 'underline', color: 'deepskyblue'}} onClick = {this.cancelOperation}> Отмена </div>
+          <div>
+            <div className = "cancel-button-style" onClick = {this.cancelOperation}> Отмена </div>
           </div>
         </div>
       </div>
