@@ -12,6 +12,22 @@ module.exports = {
 	module: {
 		loaders: [
 			{
+				loader: 'file-loader',
+				exclude: [
+					/\.html$/,
+					/\.(js|jsx)$/,
+					/\.(css|less)$/,
+					/\.json$/,
+					/\.bmp$/,
+					/\.gif$/,
+					/\.jpe?g$/,
+					/\.png$/,
+				],
+				options: {
+					name: '[path][name].[ext]',
+				}
+			},
+			{
 				test: /\.js$/,
 				exclude: /node_modules/,
 				loader: 'babel-loader',

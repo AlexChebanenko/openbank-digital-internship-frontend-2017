@@ -1,21 +1,39 @@
 @font-face {
   font-family: Glober;
-  src: url(/font/32126D_1_0.eot);
-  src: url(/font/32126D_1_0.eot?#iefix) format('embedded-opentype'), url(/font/32126D_1_0.woff2) format('woff2'), url(/font/32126D_1_0.woff) format('woff'), url(/font/32126D_1_0.ttf) format('truetype')
+  src: url('font/32126D_1_0.eot');
+  src: url('font/32126D_1_0.eot?#iefix') format('embedded-opentype'), 
+      url('font/32126D_1_0.woff2') format('woff2'), 
+      url('font/32126D_1_0.woff') format('woff'), 
+      url('font/32126D_1_0.ttf') format('truetype');
 }
 @font-face {
   font-family: GloberSemiBold;
-  src: url(/font/32126D_2_0.eot);
-  src: url(/font/32126D_2_0.eot?#iefix) format('embedded-opentype'), url(/font/32126D_2_0.woff2) format('woff2'), url(/font/32126D_2_0.woff) format('woff'), url(/font/32126D_2_0.ttf) format('truetype')
+  src: url('font/32126D_2_0.eot');
+  src: url('font/32126D_2_0.eot?#iefix') format('embedded-opentype'), 
+      url('font/32126D_2_0.woff2') format('woff2'), 
+      url('font/32126D_2_0.woff') format('woff'), 
+      url('font/32126D_2_0.ttf') format('truetype');
 }
 @font-face {
   font-family: GloberBold;
-  src: url(/font/32126D_0_0.eot);
-  src: url(/font/32126D_0_0.eot?#iefix) format('embedded-opentype'), url(/font/32126D_0_0.woff2) format('woff2'), url(/font/32126D_0_0.woff) format('woff'), url(/font/32126D_0_0.ttf) format('truetype')
+  src: url('font/32126D_0_0.eot');
+  src: url('font/32126D_0_0.eot?#iefix') format('embedded-opentype'), 
+      url('font/32126D_0_0.woff2') format('woff2'), 
+      url('font/32126D_0_0.woff') format('woff'), 
+      url('font/32126D_0_0.ttf') format('truetype');
 }
+
+html, 
+body {
+  font-family: Glober, Arial, sans-serif;
+}
+
+input,
+textarea {
+  font-family: Glober, Arial, sans-serif;
+}
+
 /* StartScreen.js */
-
-
 .start-screen {
   display: flex;
   flex-direction: row;
@@ -82,8 +100,6 @@
 .main-screen-flex-element {
   margin-left: 30px;
 }
-
-
 
 .currency-text-style {
   display: inline-block;
