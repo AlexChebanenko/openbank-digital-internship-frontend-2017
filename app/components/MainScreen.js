@@ -69,7 +69,7 @@ class MainScreen extends React.Component {
   cancelOperation() {
     this.props.onChange();
     this.setState({
-      userInput: '',
+      userInput: this.props.json.defaultAmount.RUR,
       percent: 0 + ' %',
       profit: 0 + ' ₽'
     })

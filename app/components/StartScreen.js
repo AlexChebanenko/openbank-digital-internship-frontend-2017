@@ -9,7 +9,6 @@ class StartScreen extends React.Component {
   render() {
 
     const newStyle = this.props.mainScr ? 'cross-style' : 'plus-style';
-    const symbol = this.props.mainScr ? '×' : '+';
     const outerStyle = this.props.mainScr ? 'grey-outer-style' : 'blue-outer-style';
 
     return (
@@ -25,7 +24,7 @@ class StartScreen extends React.Component {
               </div>
               <div>
                 <div className = {outerStyle} onClick = {this.props.onChange}> 
-                  <div className = {newStyle}>{symbol}</div>
+                  <div className = {newStyle}>+</div>
                 </div>
               </div>
             </div>

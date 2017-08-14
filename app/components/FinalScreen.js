@@ -9,8 +9,7 @@ class FinalScreen extends React.Component {
   render() {
     return (
       <div className = "my-flex-container">
-        <div className = "final-screen-outer-style">
-          <div className = "check-style">✓</div>
+        <div className = "icon-success">
         </div>
         <div className = "amount-style">  { '- ' +this.props.amount + ' ₽'}</div>
         <div className = "final-screen-text-style"> Открытие накопительного счета </div>
