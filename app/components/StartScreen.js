@@ -1,6 +1,6 @@
-const React = require('react');
+import React from 'react';
 
-class StartScreen extends React.Component {
+export class StartScreen extends React.Component {
 
   constructor(props) {
     super(props);
@@ -31,5 +31,3 @@ class StartScreen extends React.Component {
     );
   };
 }
-
-module.exports = StartScreen;

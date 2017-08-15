@@ -1,7 +1,7 @@
-const React = require('react');
-const StartScreen = require('./StartScreen');
-const MainScreen = require('./MainScreen');
-const FinalScreen = require ('./FinalScreen');
+import React from 'react';
+import {StartScreen} from './StartScreen';
+import {MainScreen} from './MainScreen';
+import {FinalScreen} from './FinalScreen';
 
 const json = {
   title: "Моя Копилка – до 6,75%",
@@ -31,7 +31,7 @@ const json = {
   }
 }
 
-class App extends React.Component {
+export class App extends React.Component {
 
   constructor(props) {
     super(props);
@@ -92,7 +92,7 @@ class App extends React.Component {
     } 
     
     return (
-      <div>
+      <div className = "app-style">
         <StartScreen 
           json = {json} 
           onChange = {this.addMainScreen} 
@@ -111,5 +111,3 @@ class App extends React.Component {
     );
   };
 }
-
-module.exports = App;

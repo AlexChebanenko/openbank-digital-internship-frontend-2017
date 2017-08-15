@@ -1,44 +1,48 @@
-const React = require('react');
+import React from 'react';
 
-class MainScreen extends React.Component {
+export class MainScreen extends React.Component {
   constructor(props) {
     super(props);
+    const {json} = this.props;
     this.state = {
-      userInput: this.props.json.defaultAmount.RUR,
-      percent: this.props.json.interestPercentage.RUR[this.props.json.defaultAmount.RUR] + ' %',
-      profit:  '+ ' + Math.round((this.props.json.defaultAmount.RUR * this.props.json.interestPercentage.RUR[this.props.json.defaultAmount.RUR]) / 1200) + ' ₽'
+      userInput: json.defaultAmount.RUR,
+      percent: json.interestPercentage.RUR[json.defaultAmount.RUR] + ' %',
+      profit:  '+ ' + Math.round((json.defaultAmount.RUR * json.interestPercentage.RUR[json.defaultAmount.RUR]) / 1200) + ' ₽'
     };
     this.handleInput = this.handleInput.bind(this);
     this.changeCurrency = this.changeCurrency.bind(this);
     this.handleButton = this.handleButton.bind(this);
     this.cancelOperation = this.cancelOperation.bind(this);
-  }
+  } 
 
   handleInput(event) {
+    const {json: {interestPercentage}, currency} = this.props;
     const curValue = event.target.value;
-    if(this.props.currency === 'rur') {
+    const mathValue = curValue.replace(",",".");
+
+    if(currency === 'rur') {
       let curPercent = 0;
-      const interest = this.props.json.interestPercentage.RUR;
+      const interest = interestPercentage.RUR;
       for (let i in interest) {
-        if(+curValue >= +i) {
+        if(Number(mathValue) >= Number(i)) {
           curPercent = interest[i];
         }
       }
-      const curProfit = Math.round((curPercent * curValue) / 1200);
+      const curProfit = Math.round((curPercent * mathValue) / 1200);
       this.setState({
         userInput: curValue,
         percent: curPercent + ' %',
         profit: '+ ' + curProfit + ' ₽'
       });
-    } else if (this.props.currency === 'usd') {
+    } else if (currency === 'usd') {
       let curPercent = 0;
-      const interest = this.props.json.interestPercentage.USD;
+      const interest = interestPercentage.USD;
       for (let i in interest) {
-        if(+curValue >= +i) {
+        if(Number(mathValue) >= Number(i)) {
           curPercent = interest[i];
         }
       }
-      const curProfit = Math.round((curPercent * curValue) / 1200);
+      const curProfit = Math.round((curPercent * mathValue) / 1200);
       this.setState({
         userInput: curValue,
         percent: curPercent + ' %',
@@ -46,13 +50,13 @@ class MainScreen extends React.Component {
       });
     } else {
       let curPercent = 0;
-      const interest = this.props.json.interestPercentage.EUR;
+      const interest = interestPercentage.EUR;
       for (let i in interest) {
-        if(+curValue >= +i) {
+        if(Number(mathValue) >= Number(i)) {
           curPercent = interest[i];
         }
       }
-      const curProfit = Math.round((curPercent * curValue) / 1200);
+      const curProfit = Math.round((curPercent * mathValue) / 1200);
       this.setState({
         userInput: curValue,
         percent: curPercent + ' %',
@@ -76,55 +80,62 @@ class MainScreen extends React.Component {
   }
 
   changeCurrency(event) {
+    const {json: {interestPercentage, defaultAmount}} = this.props;
     const newCur = event.target.getAttribute('value');
     this.props.setCurrency(newCur);
     if (newCur === 'rur') {
       this.setState({
-        userInput: this.props.json.defaultAmount.RUR,
-        percent: this.props.json.interestPercentage.RUR[this.props.json.defaultAmount.RUR] + ' %',
-        profit: '+ ' + Math.round((this.props.json.defaultAmount.RUR * this.props.json.interestPercentage.RUR[this.props.json.defaultAmount.RUR]) / 1200) + ' ₽'
+        userInput: defaultAmount.RUR,
+        percent: interestPercentage.RUR[defaultAmount.RUR] + ' %',
+        profit: '+ ' + Math.round((defaultAmount.RUR * interestPercentage.RUR[defaultAmount.RUR]) / 1200) + ' ₽'
       });
     } else if (newCur === 'usd') {
       this.setState({
-        userInput: this.props.json.defaultAmount.USD,
-        percent: this.props.json.interestPercentage.USD[this.props.json.defaultAmount.USD] + ' %',
-        profit: '+ ' + Math.round((this.props.json.defaultAmount.USD * this.props.json.interestPercentage.USD[this.props.json.defaultAmount.USD]) / 1200) + ' $'
+        userInput: defaultAmount.USD,
+        percent: interestPercentage.USD[defaultAmount.USD] + ' %',
+        profit: '+ ' + Math.round((defaultAmount.USD * interestPercentage.USD[defaultAmount.USD]) / 1200) + ' $'
       });
     } else {
       this.setState({
-        userInput: this.props.json.defaultAmount.EUR,
-        percent: this.props.json.interestPercentage.EUR[this.props.json.defaultAmount.EUR] + ' %',
-        profit: '+ ' + Math.round((this.props.json.defaultAmount.EUR * this.props.json.interestPercentage.EUR[this.props.json.defaultAmount.EUR]) / 1200) + ' €'
+        userInput: defaultAmount.EUR,
+        percent: interestPercentage.EUR[defaultAmount.EUR] + ' %',
+        profit: '+ ' + Math.round((defaultAmount.EUR * interestPercentage.EUR[defaultAmount.EUR]) / 1200) + ' €'
       });
     }
   }
 
   render() {
 
-    if (!this.props.mainScr) {
+    const { json: {interestPercentage}, mainScr, currency } = this.props;
+    const { userInput, percent, profit } = this.state;
+
+    if (!mainScr) {
       return null;
     } 
 
     let rows = [];
 
-    const option = this.props.json.interestPercentage;
+    const option = interestPercentage;
     let currencyTitle = ''
 
     for (let i in option) {
 
-
-      if (i === 'RUR') {
-        currencyTitle = 'РУБЛИ';
-      } else if (i === 'USD') {
-        currencyTitle = 'ДОЛЛАРЫ';
-      } else {
-        currencyTitle = 'ЕВРО';
+      switch(i) {
+        case "RUR": 
+          currencyTitle = 'РУБЛИ';
+          break;
+        case "USD":
+          currencyTitle = 'ДОЛЛАРЫ';
+          break;
+        case "EUR":
+          currencyTitle = 'ЕВРО';
+          break;
       }
 
-      const newStyle = (i.toLowerCase() === this.props.currency) ? 'selected-border' : 'currency-text-style';
+      const newStyle = (i.toLowerCase() === currency) ? 'selected-border' : 'currency-text-style';
 
       const newOption = ( 
-      <div className = {newStyle} onClick = {this.changeCurrency} value = {i.toLowerCase()}> {currencyTitle} </div>
+      <div key = {i.toLowerCase()} className = {newStyle} onClick = {this.changeCurrency} value = {i.toLowerCase()}> {currencyTitle} </div>
       );
       rows.push(newOption);
     }
@@ -135,7 +146,7 @@ class MainScreen extends React.Component {
           {rows}
         </div>
         <div>
-          <input type = "text" className = "input-style" onChange = {this.handleInput} value={this.state.userInput}/>
+          <input type = "text" className = "input-style" onChange = {this.handleInput} value={userInput}/>
         </div>
         <div className = "main-screen-flex-block">
           <div className = "main-screen-flex-element">
@@ -144,7 +155,7 @@ class MainScreen extends React.Component {
               <div className = "text-style"> в конце месяца вы получите </div>
             </div>
             <div>&nbsp;</div>
-            <div className = "profit-style">{this.state.profit}</div>
+            <div className = "profit-style">{profit}</div>
           </div>
           <div className = "main-screen-flex-element"> 
             <div> 
@@ -152,7 +163,7 @@ class MainScreen extends React.Component {
               <div className = "text-style"> от минимального остатка на счёте </div>
             </div>
             <div>&nbsp;</div>
-            <div className = "percent-style">{this.state.percent}</div>
+            <div className = "percent-style">{percent}</div>
           </div>
           <div className = "main-screen-flex-element">
             <a href = {this.props.json.tariffUrl}> О тарифе </a>
@@ -173,5 +184,3 @@ class MainScreen extends React.Component {
     );
   }
 }
-
-module.exports = MainScreen;

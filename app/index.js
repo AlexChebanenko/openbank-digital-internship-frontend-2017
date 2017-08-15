@@ -1,9 +1,11 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
-const App = require('./components/App');
-require('./styles.css');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {App} from './components/App';
+import './styles.css';
 
-ReactDOM.render(
-	<App />,
+ReactDOM.render((
+	<div>
+		<App />
+	</div>),
 	document.getElementById('app')
 );

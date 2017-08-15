@@ -33,6 +33,17 @@ textarea {
   font-family: Glober, Arial, sans-serif;
 }
 
+/* App.js */
+
+.backaround {
+  background-color: #f4f6f9;
+}
+
+.app-style {
+  width: 650px;
+  height: 550px;
+}
+
 /* StartScreen.js */
 .start-screen {
   display: flex;
@@ -77,12 +88,14 @@ textarea {
 
 .plus-style {
   margin: auto;
+  line-height: auto;
   font-size: 60px;
   color: #19b4e3;
 }
 
 .cross-style {
   margin: auto;
+  line-height: n;
   font-size: 60px;
   color: #d2d6dd;
 }
@@ -121,7 +134,6 @@ textarea {
   border-top: 1px outset #DCDCDC;
   border-bottom: 1px inset #DCDCDC;
   margin-top: 30px;
-  margin-right: 820px;
 }
 
 .input-style {
