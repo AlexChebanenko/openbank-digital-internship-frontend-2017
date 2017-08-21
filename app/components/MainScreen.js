@@ -121,15 +121,17 @@ export class MainScreen extends React.Component {
         <div className = "border-property">
           {rows}
         </div>
-        <div className = "input-label-style">
-          <label> Сумма счета </label>
-        </div>
-        <div className = "input-container">
-          <div>
-            <input type = "text" className = "input-style" onChange = {this.handleInput} value={userInput}/>
+        <div className = "input">
+          <div className = "input-label-style">
+            <label> Сумма счета </label>
           </div>
-          <div className = "input-currency-style">
-            <label> {currency.symbol} </label>
+          <div className = "input-container">
+            <div>
+              <input type = "text" className = "input-style" onChange = {this.handleInput} value={userInput}/>
+            </div>
+            <div className = "input-currency-style">
+              <label> {currency.symbol} </label>
+            </div>
           </div>
         </div>
         <div className = "main-screen-flex-block">
