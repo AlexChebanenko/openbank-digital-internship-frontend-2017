@@ -37,7 +37,10 @@ export class App extends React.Component {
     super(props);
     this.state = {
       mainScr: false,
-      currency: 'rur',
+      currency: {
+        name: 'rur',
+        symbol: '₽'
+      },
       finalScr: false,
       amount: 0
     };
@@ -60,9 +63,12 @@ export class App extends React.Component {
     }
   }
 
-  setCurrency(newCur) {
+  setCurrency(newName,newSymbol) {
     this.setState({
-      currency: newCur
+      currency: {
+        name: newName,
+        symbol: newSymbol
+      }
     });
   }
 

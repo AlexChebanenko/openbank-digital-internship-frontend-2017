@@ -2,10 +2,6 @@ import React from 'react';
 
 export class StartScreen extends React.Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   render() {
 
     const newStyle = this.props.mainScr ? 'cross-style' : 'plus-style';

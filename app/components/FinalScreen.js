@@ -2,10 +2,6 @@ import React from 'react';
 
 export class FinalScreen extends React.Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div className = "my-flex-container">

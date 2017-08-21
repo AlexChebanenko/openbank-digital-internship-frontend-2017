@@ -116,14 +116,14 @@ textarea {
 .currency-text-style {
   margin-left: 30px;
   font-size: 20px;
+  color: #d2d6dd;
 }
 
 .selected-border {
   height: 37px;
-  margin-left: 30px;
   margin-top: 13px;
   border-bottom: 3px solid #00BFFF;
-  font-size: 20px;
+  color: black;
 }
 
 .border-property {
@@ -136,13 +136,32 @@ textarea {
   margin-top: 30px;
 }
 
-.input-style {
+.input-label-style {
   margin-top: 20px;
+  margin-left: 30px;
+  color: #d2d6dd;
+  font-size: 15px;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.input-style {
   margin-left: 30px;
   height: 75px;
   width: 300px;
   font-size: 25px;
   border-radius: 3px;
+  display: inline-block;
+}
+
+.input-currency-style {
+  display: inline-block;
+  font-size: 25px;
+  height: 75px;
+  margin-top: 25px;
 }
 
 .text-style {
