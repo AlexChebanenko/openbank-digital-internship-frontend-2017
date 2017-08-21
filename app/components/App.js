@@ -44,74 +44,68 @@ export class App extends React.Component {
       finalScr: false,
       amount: 0
     };
-    this.addMainScreen = this.addMainScreen.bind(this);
-    this.setCurrency = this.setCurrency.bind(this);
-    this.openFinalScreen = this.openFinalScreen.bind(this);
-    this.moneyBoxFinished = this.moneyBoxFinished.bind(this);
-    this.changeAmount = this.changeAmount.bind(this);
   }
     
-  addMainScreen() {
-    if(this.state.mainScr) {
-      this.setState({
-        mainScr: false
-      });
-    } else {
-      this.setState({
-        mainScr: true
-      });
-    }
-  }
+  addMainScreen = () => {
+    this.setState({
+      mainScr: !this.state.mainScr
+    });
+  };
 
-  setCurrency(newName,newSymbol) {
+  setCurrency = (name, symbol) => {
     this.setState({
       currency: {
-        name: newName,
-        symbol: newSymbol
+        name,
+        symbol
       }
     });
-  }
+  };
 
-  openFinalScreen() {
+  openFinalScreen = () => {
     this.setState({
       finalScr: true,
     });
-  }
+  };
 
-  moneyBoxFinished() {
+  moneyBoxFinished = () => {
     this.setState({
       mainScr: false,
       finalScr: false
     });
-  }
+  };
 
-  changeAmount(finalAmount) {
+  changeAmount = (amount) => {
     this.setState({
-      amount: finalAmount
-    })
-  }
+      amount
+    });
+  };
 
   render() {
 
-    if(this.state.finalScr) {
-      return <FinalScreen isDone = {this.moneyBoxFinished} amount = {this.state.amount}/>;
+    if (this.state.finalScr) {
+      return ( 
+        <FinalScreen 
+          isDone={this.moneyBoxFinished}
+          amount={this.state.amount}
+        />
+      );
     } 
     
     return (
       <div className = "app-style">
         <StartScreen 
-          json = {json} 
-          onChange = {this.addMainScreen} 
-          mainScr = {this.state.mainScr}
+          json={json} 
+          onChange={this.addMainScreen} 
+          mainScr={this.state.mainScr}
         />
         <MainScreen 
-          json = {json} 
-          mainScr = {this.state.mainScr} 
-          currency = {this.state.currency} 
-          setCurrency = {this.setCurrency} 
-          onChange = {this.addMainScreen} 
-          buttonChange = {this.openFinalScreen} 
-          changeAmount = {this.changeAmount}
+          json={json} 
+          mainScr={this.state.mainScr} 
+          currency={this.state.currency} 
+          setCurrency={this.setCurrency} 
+          onChange={this.addMainScreen} 
+          buttonChange={this.openFinalScreen} 
+          changeAmount={this.changeAmount}
         />
       </div>
     );
