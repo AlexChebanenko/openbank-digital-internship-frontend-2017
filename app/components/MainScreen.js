@@ -7,14 +7,42 @@ export class MainScreen extends React.Component {
     this.state = {
       userInput: json.defaultAmount.RUR,
       percent: json.interestPercentage.RUR[json.defaultAmount.RUR] + ' %',
-      profit:  '+ ' + Math.round((json.defaultAmount.RUR * json.interestPercentage.RUR[json.defaultAmount.RUR]) / 1200) + ' ₽'
+      profit:  '+ ' + Math.round((json.defaultAmount.RUR * json.interestPercentage.RUR[json.defaultAmount.RUR]) / 1200) + ' ₽',
+      validation: true
     };
   } 
 
   handleInput = (event) => {
     const {json: {interestPercentage}, currency} = this.props;
-    const curValue = event.target.value;
+    const curValue = event.target.value.replace(/[^0-9,.]/,"");
     const mathValue = curValue.replace(",",".");
+
+    if(mathValue < 0.01) {
+      this.setState({
+        validation: false,
+        validation_message: "Пожалуйста, введите сумму для зачисления на счёт"
+      });
+    } else if ((mathValue > 12500000) && (currency.name === 'rur')) {
+      this.setState({
+        validation: false,
+        validation_message: "Максимальная сумма для открытия счёта - 12 500 000 Р"
+      });
+    } else if ((mathValue > 500000) && (currency.name === 'usd')) {
+      this.setState({
+        validation: false,
+        validation_message: "Максимальная сумма для открытия счёта - 500 000 дол."
+      });
+    } else if ((mathValue > 500000) && (currency.name === 'eur')) {
+      this.setState({
+        validation: false,
+        validation_message: "Максимальная сумма для открытия счёта - 500 000 евро"
+      });
+    } else {
+      this.setState({
+        validation: true
+      });
+    }
+    
 
     let curPercent = 0;
     const interest = interestPercentage[currency.name.toUpperCase()];
@@ -32,8 +60,10 @@ export class MainScreen extends React.Component {
   };
 
   handleButton = () => {
-    this.props.changeAmount(this.state.userInput);
-    this.props.buttonChange();
+    if (this.state.validation){
+      this.props.changeAmount(this.state.userInput);
+      this.props.buttonChange();
+    }
   };
 
   cancelOperation = () => {
@@ -78,7 +108,7 @@ export class MainScreen extends React.Component {
   render() {
 
     const { json, json: {interestPercentage}, mainScr, currency } = this.props;
-    const { userInput, percent, profit } = this.state;
+    const { userInput, percent, profit, validation, validation_message } = this.state;
 
     if (!mainScr) {
       return null;
@@ -116,17 +146,22 @@ export class MainScreen extends React.Component {
         <div className="border-property">
           {rows}
         </div>
-        <div className="input">
-          <div className="input-label-style">
-            <label> Сумма счета </label>
+        <div className="input-container">
+          <div className={this.state.validation ? "input" : "input invalid-input"}>
+            <div className="input-label-style">
+              <label> Сумма счета </label>
+            </div>
+            <div className="input-container">
+              <div>
+                <input type="text" className="input-style" onChange={this.handleInput} value={userInput}/>
+              </div>
+              <div className="input-currency-style">
+                <label> {currency.symbol} </label>
+              </div>
+            </div>
           </div>
-          <div className="input-container">
-            <div>
-              <input type="text" className="input-style" onChange={this.handleInput} value={userInput}/>
-            </div>
-            <div className="input-currency-style">
-              <label> {currency.symbol} </label>
-            </div>
+          <div className={validation ? "hidden" : "validation-message-style"}>
+            <label>{validation_message}</label>
           </div>
         </div>
         <div className="main-screen-flex-block">

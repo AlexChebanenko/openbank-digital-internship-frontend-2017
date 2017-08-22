@@ -88,14 +88,14 @@ textarea {
 
 .plus-style {
   margin: auto;
-  line-height: auto;
+  line-height: normal;
   font-size: 60px;
   color: #19b4e3;
 }
 
 .cross-style {
   margin: auto;
-  line-height: n;
+  line-height: normal;
   font-size: 60px;
   color: #d2d6dd;
 }
@@ -138,13 +138,17 @@ textarea {
 
 .input {
   height: 75px;
-  width: 300px;
+  width: 290px;
   border-radius: 3px;
   border-color: #DCDCDC;
   border-width: 1px;
   border-style: solid;
   margin-top: 20px;
   margin-left: 30px;
+}
+
+.invalid-input {
+  border-color: red;
 }
 
 .input-label-style {
@@ -159,18 +163,28 @@ textarea {
   flex-direction: row;
 }
 
+.validation-message-style {
+  margin-left: 50px;
+  margin-top: 40px;
+  color: red;
+  font-size: 17px;
+}
+
+.hidden {
+  display: none;
+}
+
 .input-style {
   margin-left: 15px;
   font-size: 25px;
-  display: inline-block;
   border: none;
   outline: none;
 }
 
 .input-currency-style {
-  display: inline-block;
   font-size: 25px;
   margin-top: 1px;
+  margin-right: 10px;
 }
 
 .text-style {
