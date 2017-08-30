@@ -31,10 +31,11 @@ module.exports = {
 				test: /\.js$/,
 				exclude: /node_modules/,
 				loader: 'babel-loader',
-				query: { 
+				query: {
 				    presets: [
 				        "react",
-				        "es2015"
+				        "es2015",
+								"stage-2"
 				    ],
 				    plugins: [
 				        "transform-class-properties"

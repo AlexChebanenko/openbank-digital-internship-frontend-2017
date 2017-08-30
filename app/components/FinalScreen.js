@@ -1,6 +1,6 @@
 import React from 'react';
 
-export class FinalScreen extends React.Component {
+class FinalScreen extends React.Component {
 
   render() {
     return (
@@ -9,14 +9,16 @@ export class FinalScreen extends React.Component {
         <div className="amount-style">  { '- ' +this.props.amount + ' ₽'}</div>
         <div className="final-screen-text-style"> Открытие накопительного счета </div>
         <div>
-          <input 
-            type="button" 
+          <input
+            type="button"
             className="button-style"
             onClick={this.props.isDone}
-            value="Готово" 
+            value="Готово"
           />
         </div>
       </div>
     );
   }
 }
+
+export default FinalScreen;

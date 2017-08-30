@@ -1,118 +1,25 @@
 import React from 'react';
 
-export class MainScreen extends React.Component {
+class MainScreen extends React.Component {
   constructor(props) {
     super(props);
-    const { json } = this.props;
-    this.state = {
-      userInput: json.defaultAmount.RUR,
-      percent: json.interestPercentage.RUR[json.defaultAmount.RUR] + ' %',
-      profit:  '+ ' + Math.round((json.defaultAmount.RUR * json.interestPercentage.RUR[json.defaultAmount.RUR]) / 1200) + ' ₽',
-      validation: true
-    };
-  } 
+  }
 
   handleInput = (event) => {
-    const {json: {interestPercentage}, currency} = this.props;
-    const curValue = event.target.value.replace(/[^0-9,.]/,"");
-    const mathValue = curValue.replace(",",".");
-
-    if(mathValue < 0.01) {
-      this.setState({
-        validation: false,
-        validation_message: "Пожалуйста, введите сумму для зачисления на счёт"
-      });
-    } else if ((mathValue > 12500000) && (currency.name === 'rur')) {
-      this.setState({
-        validation: false,
-        validation_message: "Максимальная сумма для открытия счёта - 12 500 000 Р"
-      });
-    } else if ((mathValue > 500000) && (currency.name === 'usd')) {
-      this.setState({
-        validation: false,
-        validation_message: "Максимальная сумма для открытия счёта - 500 000 дол."
-      });
-    } else if ((mathValue > 500000) && (currency.name === 'eur')) {
-      this.setState({
-        validation: false,
-        validation_message: "Максимальная сумма для открытия счёта - 500 000 евро"
-      });
-    } else {
-      this.setState({
-        validation: true
-      });
-    }
-    
-
-    let curPercent = 0;
-    const interest = interestPercentage[currency.name.toUpperCase()];
-    for (let i in interest) {
-      if (Number(mathValue) >= Number(i)) {
-        curPercent = interest[i];
-      }
-    }
-    const curProfit = Math.round((curPercent * mathValue) / 1200);
-    this.setState({
-      userInput: curValue,
-      percent: curPercent + ' %',
-      profit: '+ ' + curProfit + ' ' + currency.symbol
-    });
-  };
-
-  handleButton = () => {
-    if (this.state.validation){
-      this.props.changeAmount(this.state.userInput);
-      this.props.buttonChange();
-    }
-  };
-
-  cancelOperation = () => {
-    this.props.onChange();
-    this.setState({
-      userInput: this.props.json.defaultAmount.RUR,
-      percent: 0 + ' %',
-      profit: 0 + ' ₽'
-    })
+    this.props.handleInput(event.target.value);
   };
 
   changeCurrency = (event) => {
-    const {json: {interestPercentage, defaultAmount}} = this.props;
-    const currencyName = event.target.getAttribute('value');
-    let currencySymbol = '';
-
-    switch(currencyName) {
-        case "rur": 
-          currencySymbol = '₽';
-          break;
-        case "usd":
-          currencySymbol = '$';
-          break;
-        case "eur":
-          currencySymbol = '€';
-          break;
-    }
-
-    this.props.setCurrency(currencyName,currencySymbol);
-
-    const defAm = defaultAmount[currencyName.toUpperCase()];
-    const interest = interestPercentage[currencyName.toUpperCase()];
-
-    this.setState({
-      userInput: defAm,
-      percent: interest[defAm] + ' %',
-      profit: '+ ' + Math.round((defAm * interest[defAm]) / 1200) + ' ' + currencySymbol
-    });
-
+    this.props.changeCurrency(event.target.getAttribute('value'));
   };
 
   render() {
 
-    const { json, json: {interestPercentage}, mainScr, currency } = this.props;
-    const { userInput, percent, profit, validation, validation_message } = this.state;
+    const { data, data: {interestPercentage}, mainScr, currency, userInput, percent, profit, validation, validation_message } = this.props.moneyBox;
 
     if (!mainScr) {
       return null;
-    } 
+    }
 
     let rows = [];
 
@@ -122,7 +29,7 @@ export class MainScreen extends React.Component {
     for (let i in option) {
 
       switch(i) {
-        case "RUR": 
+        case "RUR":
           currencyTitle = 'РУБЛИ';
           break;
         case "USD":
@@ -135,7 +42,7 @@ export class MainScreen extends React.Component {
 
       const newStyle = (i.toLowerCase() === currency.name) ? 'currency-text-style selected-border' : 'currency-text-style';
 
-      const newOption = ( 
+      const newOption = (
       <div key={i.toLowerCase()} className={newStyle} onClick={this.changeCurrency} value={i.toLowerCase()}> {currencyTitle} </div>
       );
       rows.push(newOption);
@@ -147,7 +54,7 @@ export class MainScreen extends React.Component {
           {rows}
         </div>
         <div className="input-container">
-          <div className={this.state.validation ? "input" : "input invalid-input"}>
+          <div className={validation ? "input" : "input invalid-input"}>
             <div className="input-label-style">
               <label> Сумма счета </label>
             </div>
@@ -173,8 +80,8 @@ export class MainScreen extends React.Component {
             <div>&nbsp;</div>
             <div className="profit-style">{profit}</div>
           </div>
-          <div className="main-screen-flex-element"> 
-            <div> 
+          <div className="main-screen-flex-element">
+            <div>
               <div className="text-style"> Процентная ставка зависит </div>
               <div className="text-style"> от минимального остатка на счёте </div>
             </div>
@@ -182,7 +89,7 @@ export class MainScreen extends React.Component {
             <div className="percent-style">{percent}</div>
           </div>
           <div className="main-screen-flex-element">
-            <a href={json.tariffUrl}> О тарифе </a>
+            <a href={data.tariffUrl}> О тарифе </a>
             <div>&nbsp;</div>
             <div>&nbsp;</div>
             <div>&nbsp;</div>
@@ -190,13 +97,15 @@ export class MainScreen extends React.Component {
         </div>
         <div className="main-screen-flex-block">
           <div>
-            <input type="button" className="button-style" onClick={this.handleButton} value="Открыть копилку" />
+            <input type="button" className="button-style" onClick={this.props.openFinalScreen} value="Открыть копилку" />
           </div>
           <div>
-            <div className="cancel-button-style" onClick={this.cancelOperation}> Отмена </div>
+            <div className="cancel-button-style" onClick={this.props.cancelOperation}> Отмена </div>
           </div>
         </div>
       </div>
     );
   }
 }
+
+export default MainScreen;

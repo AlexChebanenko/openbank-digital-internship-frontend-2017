@@ -1,0 +1,10 @@
+const ActionTypes = {
+  STEP_TWO: 'STEP_TWO',
+  NEW_CURRENCY: 'NEW_CURRENCY',
+  NEW_AMOUNT: 'NEW_AMOUNT',
+  STEP_THREE: 'STEP_THREE',
+  CANCEL_OPPERATION: 'CANCEL_OPPERATION',
+  FINISH: 'FINISH',
+};
+
+export default ActionTypes;

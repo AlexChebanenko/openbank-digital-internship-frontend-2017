@@ -1,6 +1,6 @@
 import React from 'react';
 
-export class StartScreen extends React.Component {
+class StartScreen extends React.Component {
 
   render() {
 
@@ -8,7 +8,7 @@ export class StartScreen extends React.Component {
     const outerStyle = this.props.mainScr ? 'grey-outer-style' : 'blue-outer-style';
 
     return (
-            <div className="start-screen"> 
+            <div className="start-screen">
               <div>
                 <div className="title-style">
                   {this.props.json.title}
@@ -19,7 +19,7 @@ export class StartScreen extends React.Component {
                 </div>
               </div>
               <div>
-                <div className={outerStyle} onClick={this.props.onChange}> 
+                <div className={outerStyle} onClick={this.props.addMainScreen}>
                   <div className={newStyle}>+</div>
                 </div>
               </div>
@@ -27,3 +27,5 @@ export class StartScreen extends React.Component {
     );
   };
 }
+
+export default StartScreen;
