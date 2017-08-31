@@ -24,7 +24,7 @@ const Actions = {
 
   cancelOperation() {
     MoneyBoxDispatcher.dispatch({
-      type: MoneyBoxActionTypes.CANCEL_OPPERATION,
+      type: MoneyBoxActionTypes.CANCEL_OPERATION,
     });
   },
 

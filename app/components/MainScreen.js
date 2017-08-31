@@ -1,21 +1,50 @@
 import React from 'react';
+import {Container} from 'flux/utils';
+import MoneyBoxActions from '../data/MoneyBoxActions';
+import MoneyBoxStore from '../data/MoneyBoxStore';
 
 class MainScreen extends React.Component {
   constructor(props) {
     super(props);
   }
 
+  static getStores() {
+    return [
+      MoneyBoxStore,
+    ];
+  }
+
+  static calculateState() {
+    return {
+      moneyBox: MoneyBoxStore.getState(),
+      cancelOperation: MoneyBoxActions.cancelOperation,
+      openFinalScreen: MoneyBoxActions.goToStepThree,
+      changeCurrency: MoneyBoxActions.changeCurrency,
+    };
+  }
+
   handleInput = (event) => {
-    this.props.handleInput(event.target.value);
+    MoneyBoxActions.handleInput(event.target.value);
   };
 
   changeCurrency = (event) => {
-    this.props.changeCurrency(event.target.getAttribute('value'));
+    MoneyBoxActions.changeCurrency(event.target.getAttribute('value'));
   };
 
   render() {
 
-    const { data, data: {interestPercentage}, mainScr, currency, userInput, percent, profit, validation, validation_message } = this.props.moneyBox;
+    const { data,
+      data: {
+        interestPercentage
+      },
+      mainScr,
+      currency,
+      userInput,
+      percent,
+      profit,
+      validation,
+      validation_message
+    } = this.state.moneyBox;
 
     if (!mainScr) {
       return null;
@@ -97,10 +126,10 @@ class MainScreen extends React.Component {
         </div>
         <div className="main-screen-flex-block">
           <div>
-            <input type="button" className="button-style" onClick={this.props.openFinalScreen} value="Открыть копилку" />
+            <input type="button" className="button-style" onClick={this.state.openFinalScreen} value="Открыть копилку" />
           </div>
           <div>
-            <div className="cancel-button-style" onClick={this.props.cancelOperation}> Отмена </div>
+            <div className="cancel-button-style" onClick={this.state.cancelOperation}> Отмена </div>
           </div>
         </div>
       </div>
@@ -108,4 +137,4 @@ class MainScreen extends React.Component {
   }
 }
 
-export default MainScreen;
+export default Container.create(MainScreen);

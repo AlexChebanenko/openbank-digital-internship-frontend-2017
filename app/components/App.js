@@ -1,6 +1,6 @@
 import React from 'react';
 import StartScreen from './StartScreen';
-import MainScreenContainer from '../containers/MainScreenContainer';
+import MainScreen from '../components/MainScreen';
 import FinalScreen from './FinalScreen';
 
 class App extends React.Component {
@@ -27,7 +27,7 @@ class App extends React.Component {
           addMainScreen={this.props.addMainScreen}
           mainScr={this.props.moneyBox.mainScr}
         />
-        <MainScreenContainer />
+        <MainScreen />
       </div>
     );
   };

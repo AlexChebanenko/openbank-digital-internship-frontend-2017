@@ -81,7 +81,7 @@ class MoneyBoxStore extends ReduceStore {
         }
 
         const defAm = state.data.defaultAmount[currencyName.toUpperCase()];
-        const interest = state.data.interestPercentage[currencyName.toUpperCase()];
+        let interest = state.data.interestPercentage[currencyName.toUpperCase()];
 
         return {
             ...state,
@@ -92,29 +92,30 @@ class MoneyBoxStore extends ReduceStore {
             userInput: defAm,
             percent: interest[defAm] + ' %',
             profit: '+ ' + Math.round((defAm * interest[defAm]) / 1200) + ' ' + currencySymbol,
+            validation: true,
         }
 
       case MoneyBoxActionTypes.NEW_INPUT:
         const {currency} = state;
         const curValue = action.input.replace(/[^0-9,.]/,"");
         const mathValue = curValue.replace(",",".");
-        let val = false;
-        let val_mes = '';
+        let validation = false;
+        let validation_message = '';
 
         if (mathValue < 0.01) {
-              val_mes = "Пожалуйста, введите сумму для зачисления на счёт";
+            validation_message = "Пожалуйста, введите сумму для зачисления на счёт";
         } else if ((mathValue > 12500000) && (currency.name === 'rur')) {
-            val_mes = "Максимальная сумма для открытия счёта - 12 500 000 Р";
+            validation_message = "Максимальная сумма для открытия счёта - 12 500 000 Р";
         } else if ((mathValue > 500000) && (currency.name === 'usd')) {
-            val_mes = "Максимальная сумма для открытия счёта - 500 000 дол.";
+            validation_message = "Максимальная сумма для открытия счёта - 500 000 дол.";
         } else if ((mathValue > 500000) && (currency.name === 'eur')) {
-            val_mes =  "Максимальная сумма для открытия счёта - 500 000 евро";
+            validation_message =  "Максимальная сумма для открытия счёта - 500 000 евро";
         } else {
-            val = true;
+            validation = true;
         }
 
-
         let curPercent = 0;
+        interest = state.data.interestPercentage[currency.name.toUpperCase()];
         for (let i in interest) {
           if (Number(mathValue) >= Number(i)) {
             curPercent = interest[i];
@@ -126,8 +127,8 @@ class MoneyBoxStore extends ReduceStore {
           userInput: curValue,
           percent: curPercent + ' %',
           profit: '+ ' + curProfit + ' ' + currency.symbol,
-          validation: val,
-          validation_message: val_mes,
+          validation,
+          validation_message,
         }
 
       case MoneyBoxActionTypes.STEP_THREE:
@@ -142,7 +143,7 @@ class MoneyBoxStore extends ReduceStore {
 
         return state;
 
-      case MoneyBoxActionTypes.CANCEL_OPPERATION:
+      case MoneyBoxActionTypes.CANCEL_OPERATION:
 
         return {
           ...state,
