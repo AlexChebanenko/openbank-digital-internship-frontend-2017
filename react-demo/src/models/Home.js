@@ -1,11 +1,11 @@
-import Device from 'devices/Device';
-import DeviceTypes from 'devices/DeviceTypes';
+import Device from './devices/Device';
+import DeviceTypes from './devices/DeviceTypes';
 import Lamp from "./devices/Lamp";
 import Lock from "./devices/Lock";
 import Socket from "./devices/Socket";
 
 class Home {
-  constructor(homeState) {
+  constructor(homeState = {}) {
     this.masterName = homeState.masterName || '';
     this.rooms = homeState.rooms || [
       {
@@ -30,9 +30,9 @@ class Home {
   }
 
   editRoomName(currentRoomName, newRoomName) {
-    this.devices.
-    filter(device => device.roomName === currentRoomName).
-    forEach(device => device.addToRoom(newRoomName));
+    this.devices
+        .filter(device => device.roomName === currentRoomName)
+        .forEach(device => device.addToRoom(newRoomName));
 
     for(let room of this.rooms) {
       if(room.roomName === newRoomName) {
@@ -42,9 +42,9 @@ class Home {
   }
 
   deleteRoom(roomName) {
-    this.devices.
-    filter(device => device.roomName === roomName).
-    forEach(device => device.deleteFromRoom());
+    this.devices
+        .filter(device => device.roomName === roomName)
+        .forEach(device => device.deleteFromRoom());
 
     this.rooms.splice(this.rooms.indexOf(roomName), 1);
   }
@@ -68,6 +68,16 @@ class Home {
 
     this.devices.push(newDevice);
     this.totalDeviceIds++;
+  }
+
+  addDeviceToRoom(deviceId, roomName) {
+    //looks like pretty ugly because of numerous tries of understand what goes wrong,
+    //should be rewrote
+    for (let i = 0; i < this.devices.length; i++) {
+      if(this.devices[i].deviceId === deviceId) {
+        this.devices[i].roomName = roomName;
+      }
+    }
   }
 
   deleteDevice(deviceId) {

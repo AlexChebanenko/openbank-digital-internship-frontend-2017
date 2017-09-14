@@ -1,15 +1,31 @@
 import {Container} from 'flux/utils';
-import MainMenu from '../MainMenu.react';
+import React from 'react';
+import AppView from '../views/AppView.react';
 import HomeStore from '../../stores/HomeStore';
+import ViewStore from "../../stores/ViewStore";
 
-function getStores() {
-  return [
-    HomeStore,
-  ];
+class AppContainer extends React.Component {
+
+  static getStores() {
+    return [
+      HomeStore,
+      ViewStore,
+    ];
+  }
+
+  static calculateState() {
+    return {
+      home: HomeStore.getState(),
+      navigation: ViewStore.getState().last(),
+    };
+  }
+
+  render() {
+    return (
+      <AppView {...this.state} />
+    );
+  }
 }
 
-function getState() {
-  return HomeStore.getState();
-}
 
-export default Container.createFunctional(MainMenu, getStores, getState);
+export default Container.create(AppContainer);

@@ -1,5 +1,121 @@
-body {
+* {
   margin: 0;
   padding: 0;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+}
+
+body {
   font-family: sans-serif;
+  background-color: #2d2d2d;
+}
+
+footer {
+  height: 3%;
+  background-color: #222222;
+}
+
+.AppView {
+  display: flex;
+  flex-direction: column;
+  float: left;
+  justify-content: space-between;
+  width: 40%;
+  height: 100%;
+  background-color: #F1F1F4;
+}
+
+.MainView {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.RoomView {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex-grow: 1;
+}
+
+.RoomAddView {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex-grow: 1;
+}
+
+.MenuHeader {
+  padding-bottom: 10px;
+  width: 100%;
+  height: 10%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #222222;
+  color: #00d8ff;
+}
+
+.MenuHeader .NavButton {
+  display: flex;
+  align-items: center;
+}
+
+.MenuHeader h1 {
+  margin: 10px;
+}
+
+.ItemList {
+  margin: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: space-around;
+}
+
+.ListItem {
+  margin: 10px;
+  padding: 5px;
+  border-radius: 8px;
+  height: 50px;
+  flex-basis: 50px;
+  flex-shrink: 2;
+  border: 2px solid #BBBCBF;
+}
+
+.MenuHeader .ListItem {
+  border: 2px solid #222222;
+}
+
+.MenuHeader .ListItem .ItemTitle {
+  color: #aaaaaa;
+}
+
+.MenuHeader .ListItem:hover {
+  background-color: #333333;
+  border: 2px solid #cc7a6f;
+  color: #4f494a;
+}
+
+.MenuHeader .ListItem:hover .ItemTitle {
+  color: #fafada;
+}
+
+.ListItem:hover {
+  background-color: #aaaaaa;
+  border: 2px solid #333333;
+  color: #4f494a;
+}
+
+.ItemTitle {
+  font-size: 8px;
+  text-align: center;
+  margin-top: 5px;
 }

@@ -1,33 +1,32 @@
 import React from 'react';
 import Button from "./Button.react";
 import PropTypes from 'prop-types';
+import Actions from "../actions/Actions";
 
 
 class MenuHeader extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      masterName: this.props.masterName,
-      homeButtonEnabled: this.props.homeButtonEnabled,
-    }
+
+  pressHomeButton() {
+    Actions.clickHomeButton();
   }
 
   render() {
+    let leftPart = this.props.homeButtonEnabled ?
+                   <div className="NavButton">
+                     <Button pic={'./icons/less.svg'} desc={'НАЗАД'}
+                             onClickAction={this.pressHomeButton.bind(this)}
+                     />
+                     <h2>{this.props.screenName}</h2>
+                   </div> :
+                   <h1> Привет, {this.props.masterName || 'Хозяин'}. </h1>;
     return (
-      <div>
-        {this.state.homeButtonEnabled ?
-          <Button
-            buttonType="home"
-          />
-          :
-          <h1>
-            Привет, {this.state.masterName}.
-         </h1>
-        }
+      <header className="MenuHeader">
+        {leftPart}
         <Button
-          buttonType="settings"
+          pic={'./icons/settings.svg'}
+          desc={'НАСТРОЙКИ'}
         />
-      </div>
+      </header>
     )
   }
 }

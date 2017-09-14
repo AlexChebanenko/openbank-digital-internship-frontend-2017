@@ -8,67 +8,78 @@ class ItemList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      listName: this.props.listName,
-      listData: this.props.listData,
-      dataType: this.props.listSettings.dataType,
-      addButton: this.props.listSettings.addButton,
-      moreButton: this.props.listSettings.moreButton,
-      itemsShowedByDefault: this.props.listSettings.itemsShowedByDefault || 0,
-      showIcons: this.props.listSettings.showIcons,
+      itemsShowedByDefault: this.props.listSettings.itemsShowedByDefault,
+      isExpanded: false,
     }
   }
 
-  render() {
-    let showedListData = this.state.listData;
-    if(!this.state.itemsShowedByDefault) {
-      showedListData = showedListData.slice(0, this.state.itemsShowedByDefault);
-    }
-    let listItems = showedListData.map(
-      (dataItem, id) => {
-        return (
-          <li key={id}>
-            <Item
-              itemType={this.state.dataType}
-              itemData={dataItem}
-              showIcon={this.state.showIcons}
-            />
-          </li>
-        );
+  expandList() {
+    this.setState({isExpanded: !this.state.isExpanded,});
+  }
+
+  showedListData() {
+    if(!this.state.isExpanded) {
+      if(this.state.itemsShowedByDefault) {
+        return this.props.listData.slice(0, this.state.itemsShowedByDefault + 1);
       }
-    );
+    }
+    return this.props.listData;
+  }
 
-    if(this.state.moreButton) {
-      listItems.push(
-        <li key={listItems.length}>
-          <Button
-            buttonType="more"
-            dataType={null}
-          />
-        </li>
+  render() {
+    let listItems = null;
+    if(this.props.listData) {
+      listItems = this.showedListData().map(
+        (dataItem, id) => {
+          //need certain index in case of list of rooms because of
+          // first room named '_home' is internal and should be hidden
+          if(this.props.listSettings.dataType === 'room' && id === 0) {
+            return null;
+          }
+          else {
+            return (
+              <Item
+                key={id}
+                itemType={this.props.listSettings.dataType}
+                itemData={dataItem}
+                showIcon={this.props.listSettings.showIcons}
+                buttonCallback={this.props.listContext === 'room_add_device' ?
+                                this.props.buttonCallback : undefined}
+              />
+            );
+          }
+        }
       );
     }
-
-    if(this.state.addButton) {
-      listItems.push(
-        <li key={listItems.length}>
-          <Button
-            buttonType="add"
-            dataType={this.state.dataType}
-          />
-        </li>
-      );
-    }
-
 
     return (
-      <div>
+      <div style={{
+        margin: 10 + 'px',
+      }}>
         <h2>
-          {this.state.listName}:
+          {this.props.listName}:
         </h2>
         <hr/>
-        <ul>
+        <div className="ItemList">
           {listItems}
-        </ul>
+          {
+            this.props.listSettings.moreButton &&
+            this.props.listData.length >= this.state.itemsShowedByDefault &&
+            <Button
+              pic={this.state.isExpanded ? './icons/less.svg' : './icons/more.svg'}
+              desc={this.state.isExpanded ? 'МЕНЬШЕ' : 'БОЛЬШЕ'}
+              onClickAction={this.expandList.bind(this)}
+            />
+          }
+          {
+            this.props.listSettings.addButton &&
+            <Button
+              pic={'./icons/add.svg'}
+              desc={'ДОБАВИТЬ'}
+              onClickAction={this.props.buttonCallback}
+            />
+          }
+        </div>
       </div>
 
     );
@@ -78,11 +89,17 @@ class ItemList extends React.Component {
 ItemList.propTypes = {
   listName: PropTypes.string.isRequired,
   listData: PropTypes.array.isRequired,
-  dataType: PropTypes.string,
-  addButton: PropTypes.bool,
-  moreButton: PropTypes.bool,
-  itemsShowedByDefault: PropTypes.number,
-  showIcons: PropTypes.bool,
+  buttonCallback: PropTypes.func,
+  listContext: PropTypes.string.isRequired,
+  listSettings: PropTypes.shape(
+    {
+      dataType: PropTypes.string,
+      addButton: PropTypes.bool,
+      moreButton: PropTypes.bool,
+      itemsShowedByDefault: PropTypes.number,
+      showIcons: PropTypes.bool,
+    }
+  ),
 };
 
 export default ItemList;

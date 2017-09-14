@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 
 
 class Device {
-  constructor(deviceId, deviceName, deviceModelDescription) {
+  constructor(deviceId, deviceName, deviceModelDescription, deviceType) {
     this.deviceId = deviceId;
     this.deviceName = deviceName;
     this.deviceModelDescription = deviceModelDescription;
-    this.deviceType = DeviceTypes.DEFAULT;
+    this.deviceType = deviceType;
     this.roomName = '_home';
   }
 

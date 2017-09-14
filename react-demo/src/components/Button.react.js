@@ -2,28 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class Button extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      buttonType: this.props.buttonType,
-    }
-  }
-
   render() {
-    switch (this.state.buttonType) {
-      case 'settings':
-        return (
-          <div>
-
-          </div>
-        )
-    }
-
+    return (
+      <div
+        className="ListItem"
+        onClick={this.props.onClickAction}
+      >
+        <img src={this.props.pic} />
+        <p className="ItemTitle" >{this.props.desc}</p>
+      </div>
+    );
   }
 }
 
 Button.propTypes = {
-  buttonType: PropTypes.string.isRequired,
+  pic: PropTypes.string.isRequired,
+  desc: PropTypes.string.isRequired,
+  onClickAction: PropTypes.func,
 };
 
 export default Button;

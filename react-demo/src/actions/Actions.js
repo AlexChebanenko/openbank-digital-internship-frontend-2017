@@ -10,11 +10,10 @@ const Actions = {
     );
   },
 
-  switchViewAllSection(viewType) {
+  clickHomeButton() {
     AppDispatcher.dispatch(
       {
-        type: ActionTypes.VIEWALL_SWITCHED,
-        viewType,
+        type: ActionTypes.HOMEBUTTON_CLICKED,
       }
     );
   },
@@ -29,6 +28,7 @@ const Actions = {
   },
 
   openRoom(roomName) {
+    console.log(`room ${roomName} was clicked.`);
     AppDispatcher.dispatch(
       {
         type: ActionTypes.ROOM_SELECTED,
@@ -46,14 +46,6 @@ const Actions = {
     );
   },
 
-  showMoreItems() {
-    AppDispatcher.dispatch(
-      {
-        type: ActionTypes.VIEWMORE_SELECTED,
-      }
-    );
-  },
-
   addNewDevice(deviceName, deviceModelDescription, deviceType) {
     AppDispatcher.dispatch(
       {
@@ -61,6 +53,25 @@ const Actions = {
         deviceName,
         deviceModelDescription,
         deviceType,
+      }
+    );
+  },
+
+  openAddDeviceScreen(roomName) {
+    AppDispatcher.dispatch(
+      {
+        type: ActionTypes.TRYING_TO_ADD_DEVICE_TO_ROOM,
+        roomName,
+      }
+    );
+  },
+
+  addDeviceToRoom(roomName, deviceId) {
+    AppDispatcher.dispatch(
+      {
+        type: ActionTypes.DEVICE_ADDED_TO_ROOM,
+        roomName,
+        deviceId,
       }
     );
   },

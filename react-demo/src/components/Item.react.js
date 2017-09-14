@@ -2,58 +2,59 @@ import React from 'react';
 import Actions  from '../actions/Actions';
 
 class Item extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      itemType: this.props.itemType,
-      itemData: this.props.itemData,
-      showIcon: this.props.showIcon,
-    }
-  }
 
   openRoomAction() {
-    Actions.openRoom(this.state.itemData.roomName);
+    Actions.openRoom(this.props.itemData.roomName);
   }
 
   openDeviceAction() {
-    Actions.openDevice(this.state.itemData.deviceId);
+    Actions.openDevice(this.props.itemData.deviceId);
+  }
+
+  addDeviceToRoomAction() {
+    this.props.buttonCallback(this.props.itemData.deviceId);
   }
 
   render() {
     let item;
-    switch (this.state.itemType) {
+    switch (this.props.itemType) {
       case 'room':
-        let roomIcon;
-        if(this.state.showIcon) {
+        let roomIcon = null;
+        if(this.props.showIcon) {
           roomIcon = (
             <img
-              src={this.state.itemData.roomIcon}
-              alt={"Иконка для" + this.state.itemData.roomName}
+              src={this.props.itemData.roomIcon}
+              alt={"Иконка для" + this.props.itemData.roomName}
             />
           )
         } else {
           roomIcon = "Вместо иконки";
         }
         item = (
-          <div onClick={this.openRoomAction.bind(this)}>
+          <div className="ListItem" onClick={this.openRoomAction.bind(this)}>
             {roomIcon}
-            {this.state.itemData.roomName}
+            <p className="ItemTitle" >{this.props.itemData.roomName.toUpperCase()}</p>
           </div>
         );
         break;
       case 'device':
         item = (
-          <div onClick={this.openDeviceAction.bind(this)}>
+          <div className="ListItem"
+            onClick={this.props.buttonCallback === undefined ?
+                     this.openDeviceAction.bind(this) : this.addDeviceToRoomAction.bind(this)}
+          >
             <img
-              src={this.state.itemData.deviceType}
-              alt={this.state.itemData.deviceModelDescription}
+              src={`./icons/devices/${this.props.itemData.deviceType}.svg`}
+              alt={this.props.itemData.deviceModelDescription}
             />
-            {this.state.itemData.deviceName}
+            <p className="ItemTitle" >{this.props.itemData.deviceName}</p>
           </div>
         );
         break;
-
+      default:
+        return 'MockItem';
     }
+    return  item;
   }
 }
 
